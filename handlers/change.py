@@ -19,7 +19,7 @@ async def callback_confirm_change(callback: types.CallbackQuery):
 
 @dp.callback_query(F.data == "cancel_change")
 async def callback_cancel_change(callback: types.CallbackQuery):
-    from database import pool  # Import inside the function
+    from database import pool
     async with pool.acquire() as conn:
         user_data = await conn.fetchrow(
             "SELECT group_id FROM public.users WHERE id = $1", callback.from_user.id
