@@ -5,7 +5,7 @@ from loader import dp, bot
 from config import DATABASE_CONFIG
 from database import init_db_pool
 
-import handlers  # noqa
+import handlers
 
 
 async def main():
