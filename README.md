@@ -45,7 +45,13 @@
 
 4. **Настройте базу данных:**
 
-   - Создайте базу данных PostgreSQL и необходимые таблицы согласно структуре вашей базы данных.
+   - Создайте базу данных PostgreSQL.
+   - Выполните скрипт `create_db.sql`, чтобы создать необходимые таблицы и структуры в базе данных:
+
+     ```bash
+     psql -U your_db_user -d your_db_name -f create_db.sql
+     ```
+
    - Обновите файл `config.py`, указав параметры подключения к базе данных:
 
      ```python
@@ -53,7 +59,8 @@
          'user': 'your_db_user',
          'password': 'your_db_password',
          'database': 'your_db_name',
-         'host': 'your_db_host'
+         'host': 'your_db_host',
+         'port': 'your_db_port'  # Если отличается от стандартного 5432
      }
      ```
 
