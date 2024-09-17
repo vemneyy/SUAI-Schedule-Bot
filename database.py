@@ -23,17 +23,21 @@ async def fetch_groups_by_course(course_id):
 
 async def fetch_schedule(user_id, day_offset=0, week_kind=None):
     global pool
+#    from datetime import datetime
+
+#    target_date = datetime.now()
     from datetime import datetime, timedelta
 
-    today = datetime.now() + timedelta(days=day_offset)
+    target_date = datetime.now() + timedelta(days=day_offset)
 
-    weekday_name_en = today.strftime('%A')
-
+    weekday_name_en = target_date.strftime('%A')
     weekday_name = DAY_OF_WEEK_MAPPING.get(weekday_name_en)
 
+    # Определяем week_kind на основе target_date
     if not week_kind:
-        week_kind = is_odd_week()
+        week_kind = is_odd_week(target_date)
 
+    # Получаем данные о группе пользователя
     async with pool.acquire() as conn:
         user_data = await conn.fetchrow("SELECT group_id FROM public.users WHERE id = $1", user_id)
 
@@ -42,6 +46,7 @@ async def fetch_schedule(user_id, day_offset=0, week_kind=None):
 
         group_id = user_data['group_id']
 
+        # Запрос на получение расписания для текущей группы и дня
         query = '''
             SELECT s.id, s.group_id, s.lesson_number, s.subject, s.classroom, s.week_kind, lt.start_time, lt.end_time
             FROM public.schedule s
@@ -53,7 +58,7 @@ async def fetch_schedule(user_id, day_offset=0, week_kind=None):
         '''
         schedule_data = await conn.fetch(query, group_id, weekday_name, week_kind)
 
-    return schedule_data, today
+    return schedule_data, target_date
 
 
 async def fetch_teachers_for_schedule(schedule_id):
