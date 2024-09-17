@@ -38,7 +38,7 @@ async def callback_select_group(callback: types.CallbackQuery):
         BotCommand(command="tommorow", description="Расписание на завтра"),
         BotCommand(command="change", description="Сменить группу"),
         BotCommand(command="calls", description="Расписание звонков"),
-        BotCommand(command="list", description="Вывести список команд")
+        BotCommand(command="help", description="Вывести список команд")
     ]
     await bot.set_my_commands(usercommands, scope=BotCommandScopeDefault())
 
@@ -51,7 +51,7 @@ async def callback_select_group(callback: types.CallbackQuery):
                                   "/tommorow — Расписание на завтра\n"
                                   "/change — Сменить группу\n"
                                   "/calls — Расписание звонков\n"
-                                  "/list — Вывести список команд",
+                                  "/help — Вывести список команд",
                                   reply_markup=get_today_week_keyboard())
 
 
