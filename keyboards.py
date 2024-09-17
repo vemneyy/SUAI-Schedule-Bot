@@ -64,13 +64,17 @@ def get_course_setter():
 
 
 # Функция для создания inline-кнопки смены недели
-def get_week_switch_keyboard(current_week_kind):
-    new_week_kind = "odd" if current_week_kind == "even" else "even"
-    button_text = "Переключить на Числитель" if current_week_kind == "even" else "Переключить на Знаменатель"
+def get_week_switch_keyboard(current_week_state):
+    if current_week_state == 'current':
+        button_text = "Переключить на следующую неделю"
+        callback_data = "switch_week_next"
+    else:  # current_week_state == 'next'
+        button_text = "Переключить на текущую неделю"
+        callback_data = "switch_week_current"
 
     keyboard = InlineKeyboardMarkup(
         inline_keyboard=[
-            [InlineKeyboardButton(text=button_text, callback_data=f"switch_week_{new_week_kind}")]
+            [InlineKeyboardButton(text=button_text, callback_data=callback_data)]
         ]
     )
     return keyboard
