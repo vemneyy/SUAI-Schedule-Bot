@@ -13,10 +13,11 @@ DAY_OF_WEEK_MAPPING = {
     "Sunday": "Воскресенье"
 }
 
-
-# Определение четности недели
-def is_odd_week():
-    week_number = datetime.now().isocalendar()[1]
+# Измененная функция is_odd_week принимает дату
+def is_odd_week(date=None):
+    if date is None:
+        date = datetime.now()
+    week_number = date.isocalendar()[1]
     return "even" if week_number % 2 != 0 else "odd"
 
 
