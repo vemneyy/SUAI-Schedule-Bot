@@ -4,11 +4,11 @@ from aiogram import types
 from aiogram.filters.command import Command
 
 from loader import dp
-from database import fetch_lesson_times
+from database import fetch_lesson_times  # Do not import pool here
 
 @dp.message(Command("calls"))
 async def cmd_calls(message: types.Message):
-    from database import pool 
+    from database import pool  # Import pool inside the function
     async with pool.acquire() as conn:
         user_data = await conn.fetchrow("SELECT group_id FROM public.users WHERE id = $1", message.from_user.id)
 
