@@ -6,7 +6,7 @@ from aiogram.filters.command import Command
 from loader import dp
 
 
-@dp.message(Command("list"))
+@dp.message(Command("help"))
 async def cmd_list(message: types.Message):
     await message.answer(
         "Список команд бота:\n"
@@ -15,5 +15,5 @@ async def cmd_list(message: types.Message):
         "/tommorow - Показать на завтра\n"
         "/change - Изменить группу\n"
         "/calls - Вывести расписание звонков\n"
-        "/list - вывести список команд"
+        "/help - вывести список команд"
     )
