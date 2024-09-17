@@ -34,7 +34,7 @@ async def callback_cancel_change(callback: types.CallbackQuery):
                                           "/tommorow - Показать на завтра\n"
                                           "/change - Изменить группу\n"
                                           "/calls - Вывести расписание звонков\n"
-                                          "/list - вывести список команд",
+                                          "/help - вывести список команд",
                                           reply_markup=get_today_week_keyboard())
         else:
             await callback.message.answer("Отмена смены группы. Группа не выбрана.",
